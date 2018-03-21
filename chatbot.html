@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<link href="botchat.css" rel="stylesheet" />
+<style>
+
+body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px; }
+
+.wc-app button {
+  background-color: #0078d7;
+  border: 1px solid #cccccc;
+  border-radius: 1px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color .2s ease, background-color .2s ease; }
+
+.wc-app h1, .wc-app h2, .wc-app h3, .wc-app h4, .wc-app p, .wc-app ul, .wc-app ol {
+  margin: 0;
+  padding: 0; }
+
+.wc-app audio, .wc-app video {
+  display: block; }
+
+.wc-message-groups {
+    background: #fff;}
+.bot-icon {
+float:left;
+}
+.wc-message-from-bot svg.wc-message-callout {
+left: 44px;
+}
+.wc-message-from-bot .wc-message-content {
+float: left;
+max-width: 80%;
+}
+.wc-list {
+width:400px;
+}
+.wc-card {
+width:400px;
+}
+#bot{visibility:hidden; position:absolute; left:35%;top:15%; width:500px; height:500px;z-index:2;}
+#overlay{position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3); /* Black background with opacity */
+    z-index: 1
+}
+.wc-console {
+    background: #fff;
+    }
+    button {
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     border-bottom:1px solid #444; 
+     cursor: pointer;
+}
+</style>
+</head>
+<body>   
+<div id="bot"></div>
+<div id="overlay" onclick="closeChat()"></div>
+<button class="chatlink" onclick="showChat()" >link to chatbot</button> 
+<script src="botchat.js"></script>
+<script src="popUp.js"></script>
+
+<script>
+function guid() {
+function s4() {
+return Math.floor((1 + Math.random()) * 0x10000)
+.toString(16)
+.substring(1);
+}
+return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+s4() + '-' + s4() + s4() + s4();
+}
+const botConnection = new BotChat.DirectLine({
+secret: 'OHIqCbjW4ZA.cwA.5Lk.uPXw3T5u3d8HQk60A45Ko78w8ryuexLfVkvm7vAOvsE',
+webSocket: 'true' // defaults to true
+});
+BotChat.App({
+botConnection: botConnection,
+user: { id: guid() },
+resize: 'detect'
+}, document.getElementById("bot"));
+botConnection.postActivity({
+from: { id: 'me' },
+name: 'startup',
+type: 'event',
+value: ''
+}).subscribe();
+</script>
+</body>
+</html>

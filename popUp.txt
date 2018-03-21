@@ -1,0 +1,10 @@
+
+function showChat() {
+   document.getElementById('bot').style.visibility = "visible";
+    document.getElementById('overlay').style.display = "block";
+}
+
+function closeChat(){
+    document.getElementById('bot').style.visibility = "hidden";
+    document.getElementById('overlay').style.display = "none";
+}
